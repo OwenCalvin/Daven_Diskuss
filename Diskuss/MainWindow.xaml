@@ -1,0 +1,274 @@
+﻿<Window x:Class="Diskuss.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diskuss"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="500" MinWidth="700">
+
+    <Window.Resources>
+        <Style x:Key="ScrollBarTrackThumb"
+        TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="CornerScrollBarRectangle" CornerRadius="3" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Width="Auto" Height="Auto" Margin="0" Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <Setter TargetName="CornerScrollBarRectangle" Property="Width" Value="Auto" />
+                                <Setter TargetName="CornerScrollBarRectangle" Property="Height" Value="0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#FF1B1B1B"/>
+            <Setter Property="Width" Value="7"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="4" Background="{TemplateBinding Background}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.00001*"/>
+                            </Grid.RowDefinitions>
+                            <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="false" RenderTransformOrigin="0.5,0.5">
+                                <Track.Thumb>
+                                    <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" Style="{DynamicResource ScrollBarTrackThumb}" />
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+                                <Setter Value="#FF1A1A1A" TargetName="Thumb" Property="Background" />
+                            </Trigger>
+                            <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+                                <Setter Value="{DynamicResource DarkBrush}" TargetName="Thumb" Property="Background" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="8" />
+                                <Setter TargetName="Thumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Name="UserChannelStyle" TargetType="local:User">
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="75"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style TargetType="local:Channel">
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="75"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style TargetType="local:Conversation">
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="BtnYellow" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="4"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontFamily" Value="Yu Gothic UI Semibold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="27" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" RenderTransformOrigin="0.5,0.5">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Cursor" TargetName="border" Value="Hand"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Opacity" Value=".8"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style x:Key="tbxForm" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="35"/>
+            <Setter Property="Foreground" Value="#99FFFFFF"/>
+            <Setter Property="Padding" Value="30,0,30,0"/>
+            <Setter Property="FontFamily" Value="Yu Gothic UI Semibold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" CornerRadius="35" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Name="grdMain">
+        <Grid Name="grdLogin" Panel.ZIndex="9999" Background="#DF2c2f33">
+            <TextBox Name="tbxForm" VerticalAlignment="Center" MinHeight="70" Margin="200,200,200,200" Background="#33000000" Style="{DynamicResource tbxForm}"/>
+            <Button FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Login" Background="Transparent" Foreground="#F6C90E" BorderBrush="#F6C90E" FontWeight="Bold" Margin="0,160,0,0" Width="147" Style="{DynamicResource BtnYellow}" Name="btnLogin" Click="btnLogin_Click"></Button>
+        </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Width="100" HorizontalAlignment="Left" Background="#23272A" Margin="0,100,0,0">
+            <local:UserChannelGrid x:Name="grdUsersList" Background="#23272A"/>
+        </ScrollViewer>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Width="100" HorizontalAlignment="Left" Background="#23272A" Margin="100,100,0,0">
+            <local:UserChannelGrid x:Name="grdChannelsList" Background="#23272A"/>
+        </ScrollViewer>
+        <Grid HorizontalAlignment="Left" Width="365" Margin="200,0,0,0" Background="#383c3f">
+            <Grid Background="#303336" Height="90" VerticalAlignment="Top">
+                <Label x:Name="lblNick" Content="No nick" Foreground="White" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="30,0,0,0" FontFamily="Segoe UI Semibold"/>
+            </Grid>
+            <ScrollViewer Margin="0,100,0,0" >
+                <local:ConversationGrid x:Name="grdConversations" Background="#383c3f" Width="365"/>
+            </ScrollViewer>
+        </Grid>
+        <Grid Panel.ZIndex="-1" Margin="556,0,-0.4,-0.4" Background="#414347">
+            <Grid Background="#383b3f" Height="90" VerticalAlignment="Top"/>
+            <Grid Background="White" Opacity="0.08" Height="60" VerticalAlignment="Bottom"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Background="#23272A">
+            <Border Width="76" Height="76" Background="#485056" VerticalAlignment="Bottom" HorizontalAlignment="Right" CornerRadius="100" Margin="0,0,12,12">
+                <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="Capa_1" Canvas.Left="0" Canvas.Top="0" Margin="0,0,0.2,0.2">
+                    <Canvas.RenderTransform>
+                        <TranslateTransform X="0" Y="0"/>
+                    </Canvas.RenderTransform>
+                    <Canvas.Resources/>
+                    <Canvas Name="g6">
+                        <Canvas Name="g4">
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path2" Fill="#88FFFFFF" Data="M346.491 316.547c49.193-29.944 81.275-83.414 81.275-145.44C427.767 76.998 350.768 0 256.66 0    S85.553 76.998 85.553 171.107c0 62.026 32.082 115.497 81.275 145.44C81.275 348.63 17.11 423.489 0 513.32h42.777    c21.388-98.386 109.081-171.107 213.883-171.107s192.495 72.72 213.883 171.107h42.777    C496.21 421.35 432.045 346.491 346.491 316.547z M128.33 171.107c0-70.581 57.749-128.33 128.33-128.33    s128.33 57.749 128.33 128.33s-57.749 128.33-128.33 128.33S128.33 241.688 128.33 171.107z" Height="46" Stretch="Fill" Width="46" Canvas.Left="14.6" Canvas.Top="13.8"/>
+                        </Canvas>
+                    </Canvas>
+                </Canvas>
+            </Border>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="100,0,0,0" Background="#23272A">
+            <Border CornerRadius="100" Width="75" Height="75" Background="#2e3438 " VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="Capa_4" Width="auto" Height="auto" Canvas.Left="0" Canvas.Top="0">
+                    <Canvas.RenderTransform>
+                        <TranslateTransform X="0" Y="0"/>
+                    </Canvas.RenderTransform>
+                    <Canvas.Resources/>
+                    <Canvas Name="g7">
+                        <Canvas Name="_x36__30_">
+                            <Canvas Name="g0">
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5" Fill="#88FFFFFF" Data="M331.685 425.378c-7.478 7.479-7.478 19.584 0 27.043c7.479 7.478 19.584 7.478 27.043 0l131.943-131.962     c3.979-3.979 5.681-9.276 5.412-14.479c0.269-5.221-1.434-10.499-5.412-14.477L358.728 159.56     c-7.459-7.478-19.584-7.478-27.043 0c-7.478 7.478-7.478 19.584 0 27.042l100.272 100.272H19.125C8.568 286.875 0 295.443 0 306     c0 10.557 8.568 19.125 19.125 19.125h412.832L331.685 425.378z M535.5 38.25H153c-42.247 0-76.5 34.253-76.5 76.5v76.5h38.25     v-76.5c0-21.114 17.117-38.25 38.25-38.25h382.5c21.133 0 38.25 17.136 38.25 38.25v382.5c0 21.114-17.117 38.25-38.25 38.25H153     c-21.133 0-38.25-17.117-38.25-38.25v-76.5H76.5v76.5c0 42.247 34.253 76.5 76.5 76.5h382.5c42.247 0 76.5-34.253 76.5-76.5     v-382.5C612 72.503 577.747 38.25 535.5 38.25z" Height="40.76" Stretch="Fill" Width="43.489" Canvas.Left="16" Canvas.Top="17.62"/>
+                            </Canvas>
+                        </Canvas>
+                    </Canvas>
+                </Canvas>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

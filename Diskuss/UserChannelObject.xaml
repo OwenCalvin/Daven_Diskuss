@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Diskuss.UserChannelObject"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Diskuss"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <Grid x:Name="grdMain" Cursor="Hand" Margin="0,0,0,-30">
+        <Border Name="brdBack" BorderBrush="Transparent" CornerRadius="1000" BorderThickness="1" Background="#485056" Margin="0,0,0,30"/>
+        <Viewbox Margin="0,0,0,30">
+            <Label Foreground="#99FFFFFF" Name="lblFirstLetterName" BorderBrush="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="150" FontFamily="Segoe UI" Height="300" Width="300"/>
+        </Viewbox>
+        <Label Content="a" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Name="lblFullName" VerticalAlignment="Bottom" Foreground="White" FontSize="20"/>
+    </Grid>
+</UserControl>
