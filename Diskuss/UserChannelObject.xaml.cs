@@ -15,13 +15,14 @@ using System.Windows.Shapes;
 
 namespace Diskuss {
     public partial class UserChannelObject : UserControl, IY{
+        public new  UserChannelGrid Parent;
         private string strName;
         public new string Name {
             get { return strName; }
             set {
                 strName = value;
                 lblFirstLetterName.Content = Name[0].ToString().ToUpper();
-                lblFullName.Content = Name.Length > 7 ? $"{Name.Substring(0, 5)}..." : Name;
+                lblFullName.Content = Name.Length > 6 ? $"{Name.Substring(0, 5)}..." : Name;
             }
         }
         public int Y {

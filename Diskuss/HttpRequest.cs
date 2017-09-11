@@ -14,12 +14,16 @@ namespace Diskuss {
             this.Url = Url;
         }
 
-        public async Task<string> GetAsync(string link) {
-            return await (await http.GetAsync(Url + link)).Content.ReadAsStringAsync();
+        public async Task<string> GetAsync(string strLink) {
+            return await (await http.GetAsync(Url + strLink)).Content.ReadAsStringAsync();
         }
 
-        public async Task<string> PostAsync(string link, string content) {
-            return await (await http.PostAsync(Url + link, new StringContent(content))).Content.ReadAsStringAsync();
+        public async Task<string> PostAsync(string strLink, string strContent) {
+            return await (await http.PostAsync(Url + strLink, new StringContent(strContent))).Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> PutAsync(string strLink, string strContent) {
+            return await (await http.PutAsync(Url + strLink, new StringContent(strContent))).Content.ReadAsStringAsync();
         }
     }
 }

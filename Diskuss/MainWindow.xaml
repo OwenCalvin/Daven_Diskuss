@@ -217,8 +217,22 @@
 
     <Grid Name="grdMain">
         <Grid Name="grdLogin" Panel.ZIndex="9999" Background="#DF2c2f33">
+            <Canvas Name="Cross" MouseDown="Cross_MouseDown" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Width="759" Cursor="Hand" Visibility="Collapsed">
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="pathsdf" Fill="#88FFFFFF" Data="M336.559 68.611L231.016 174.165l105.543 105.549c15.699 15.705 15.699 41.145 0 56.85   c-7.844 7.844-18.128 11.769-28.407 11.769c-10.296 0-20.581-3.919-28.419-11.769L174.167 231.003L68.609 336.563   c-7.843 7.844-18.128 11.769-28.416 11.769c-10.285 0-20.563-3.919-28.413-11.769c-15.699-15.698-15.699-41.139 0-56.85   l105.54-105.549L11.774 68.611c-15.699-15.699-15.699-41.145 0-56.844c15.696-15.687 41.127-15.687 56.829 0l105.563 105.554   L279.721 11.767c15.705-15.687 41.139-15.687 56.832 0C352.258 27.466 352.258 52.912 336.559 68.611z" Height="30" Stretch="Fill" Width="30" Canvas.Left="8" Canvas.Top="9.5"/>
+            </Canvas>
+
             <TextBox Name="tbxForm" VerticalAlignment="Center" MinHeight="70" Margin="200,200,200,200" Background="#33000000" Style="{DynamicResource tbxForm}"/>
-            <Button FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Login" Background="Transparent" Foreground="#F6C90E" BorderBrush="#F6C90E" FontWeight="Bold" Margin="0,160,0,0" Width="147" Style="{DynamicResource BtnYellow}" Name="btnLogin" Click="btnLogin_Click"></Button>
+            <Grid x:Name="grdBtn" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,160,0,0" >
+                <Button FontSize="30" Content="Login" Background="Transparent" Foreground="#F6C90E" BorderBrush="#F6C90E" FontWeight="Bold" Width="147" Style="{DynamicResource BtnYellow}" Name="btnLogin"></Button>
+            </Grid>
         </Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Width="100" HorizontalAlignment="Left" Background="#23272A" Margin="0,100,0,0">
             <local:UserChannelGrid x:Name="grdUsersList" Background="#23272A"/>
@@ -238,7 +252,7 @@
             <Grid Background="#383b3f" Height="90" VerticalAlignment="Top"/>
             <Grid Background="White" Opacity="0.08" Height="60" VerticalAlignment="Bottom"/>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Background="#23272A">
+        <Grid HorizontalAlignment="Left" Cursor="Hand" Height="100" VerticalAlignment="Top" Width="100" Background="#23272A">
             <Border Width="76" Height="76" Background="#485056" VerticalAlignment="Bottom" HorizontalAlignment="Right" CornerRadius="100" Margin="0,0,12,12">
                 <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="Capa_1" Canvas.Left="0" Canvas.Top="0" Margin="0,0,0.2,0.2">
                     <Canvas.RenderTransform>
@@ -253,7 +267,7 @@
                 </Canvas>
             </Border>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="100,0,0,0" Background="#23272A">
+        <Grid x:Name="grdAddChannel" Cursor="Hand" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="100,0,0,0" Background="#23272A" MouseDown="grdAddChannel_MouseDown">
             <Border CornerRadius="100" Width="75" Height="75" Background="#2e3438 " VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0">
                 <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="Capa_4" Width="auto" Height="auto" Canvas.Left="0" Canvas.Top="0">
                     <Canvas.RenderTransform>

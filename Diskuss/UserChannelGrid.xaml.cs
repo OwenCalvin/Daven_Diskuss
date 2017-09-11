@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Diskuss {
-    public partial class UserChannelGrid : UserControl {
+    public partial class UserChannelGrid : Grid {
         public ConversationGrid Destination { get; set; }
 
         public UserChannelGrid() {
@@ -30,9 +30,23 @@ namespace Diskuss {
         }
 
         public virtual void add(UserChannelObject _ucObject) {
-            grd.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100) });
-            _ucObject.Y = grd.RowDefinitions.Count - 1;
-            grd.Children.Add(_ucObject);
+            addObject(_ucObject);
+        }
+
+        public virtual void add(Conversation _convObject)
+        {
+            addObject(_convObject.Object);
+        }
+
+        private void addObject(UserChannelObject _ucObject)
+        {
+            if (!grd.Children.OfType<UserChannelObject>().Any(e => e.Name == _ucObject.Name) && !Destination.Children.OfType<Conversation>().Any(e => e.Object.Name == _ucObject.Name))
+            {
+                _ucObject.Parent = this;
+                grd.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100) });
+                _ucObject.Y = grd.RowDefinitions.Count - 1;
+                grd.Children.Add(_ucObject);
+            }
         }
 
         public void setChildren(List<UserChannelObject> _iyObjects) {

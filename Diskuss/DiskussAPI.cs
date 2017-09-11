@@ -13,25 +13,35 @@ namespace Diskuss {
 
         public Me Me { get; set; }
         private DispatcherTimer _tmr = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1), IsEnabled = true };
+        private List<UserChannelObject> _lucoConversations;
+        private List<User> _luUsers;
+        private List<Channel> _lcChannel;
 
         public event EventHandler<List<UserChannelObject>> OnUsers;
         public event EventHandler<List<UserChannelObject>> OnChannels;
         public event EventHandler OnLogin;
 
-        public DiskussAPI() {
+        public DiskussAPI(List<UserChannelObject> _lucoConversations, List<User> _luUsers, List<Channel> _lcChannel) {
             _tmr.Tick += async (sender, args) => {
                 if (Me != null) {
                     Debug.WriteLine(new JavaScriptSerializer().Deserialize<List<Notice>>(await _httpRequester.GetAsync($"user/{Me.ID}/notices")));
-                    //GetUsers();
-                    //GetChannels();
+                    GetUsers();
+                    GetChannels();
                 }
             };
+
+            this._lucoConversations = _lucoConversations;
+            this._luUsers = _luUsers;
+            this._lcChannel = _lcChannel;
         }
 
         public async void GetUsers() {
             List<UserChannelObject> _lObjects = new List<UserChannelObject>();
             // Obliger d'utiliser une autre liste sinon l'objet ne s'instancie pas correctement
-            new JavaScriptSerializer().Deserialize<List<User>>(await _httpRequester.GetAsync("users")).ForEach(e => { _lObjects.Add(new User(e.Nick)); });
+            new JavaScriptSerializer().Deserialize<List<User>>(await _httpRequester.GetAsync("users")).ForEach(e => {
+                if(e.Nick != Me.Nick)
+                    _lObjects.Add(new User(e.Nick));
+            });
             OnUsers?.Invoke(this, _lObjects);
         }
 
@@ -40,6 +50,11 @@ namespace Diskuss {
             // Obliger d'utiliser une autre liste sinon l'objet ne s'instancie pas correctement
             new JavaScriptSerializer().Deserialize<List<Channel>>(await _httpRequester.GetAsync("channels")).ForEach(e => { _lObjects.Add(new Channel(e.Name)); });
             OnChannels?.Invoke(this, _lObjects);
+        }
+        
+        public void JoinChannel(string strName)
+        {
+            
         }
 
         public async void Login(string strNick, bool bUpdate) {
