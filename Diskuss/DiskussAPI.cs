@@ -52,9 +52,10 @@ namespace Diskuss {
             OnChannels?.Invoke(this, _lObjects);
         }
         
-        public void JoinChannel(string strName)
+        public async void JoinChannel(string strName)
         {
-            
+            Channel test = new JavaScriptSerializer().Deserialize<Channel>(await _httpRequester.PutAsync($"/user/{Me.ID}/channels/{strName}/join/", strName));
+            Debug.WriteLine(test);
         }
 
         public async void Login(string strNick, bool bUpdate) {
