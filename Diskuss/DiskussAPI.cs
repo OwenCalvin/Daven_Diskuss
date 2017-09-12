@@ -22,6 +22,7 @@ namespace Diskuss {
         public event EventHandler<List<UserChannelObject>> OnChannels;
         public event EventHandler<Channel> OnChannelJoin;
         public event EventHandler OnLogin;
+        public event EventHandler<string> OnSendPrivateMessage;
 
         public DiskussAPI(List<UserChannelObject> _lucoConversations, List<User> _luUsers, List<Channel> _lcChannel) {
             _tmr.Tick += async (sender, args) => {
@@ -38,7 +39,7 @@ namespace Diskuss {
         }
 
         public async void GetUsers() {
-            OnUsers?.Invoke(this, JsonConvert.DeserializeObject<List<User>>(await _httpRequester.GetAsync("users")).ToList<UserChannelObject>());
+            OnUsers?.Invoke(this, JsonConvert.DeserializeObject<List<User>>(await _httpRequester.GetAsync("users")).ToList<UserChannelObject>().Where(_e => _e.Name != Me.Name).ToList());
         }
 
         public async void GetChannels() {
@@ -48,6 +49,10 @@ namespace Diskuss {
         public async void JoinChannel(string strName) {
             string obj = await _httpRequester.PutAsync($"user/{Me.ID}/channels/{strName}/join/", strName); // bizard
             OnChannelJoin?.Invoke(this, JsonConvert.DeserializeObject<Channel>(obj));
+        }
+
+        public async void SendPrivateMessage(string Nick, string Message) {
+            OnSendPrivateMessage?.Invoke(this, await _httpRequester.PutAsync($"user/{Me.ID}/message/{Nick}/?message={Message}", Message));
         }
 
         public async void Login(string strNick, bool bUpdate) {

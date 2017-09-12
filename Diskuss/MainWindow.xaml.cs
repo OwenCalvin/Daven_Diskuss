@@ -102,5 +102,10 @@ namespace Diskuss {
         {
             grdLogin.Visibility = Visibility.Collapsed;
         }
+
+        private void btnSend_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            _diskuss.SendPrivateMessage(grdConversations.SelectedConversation.Object.Name, tbxMessage.Text);
+        }
     }
 }

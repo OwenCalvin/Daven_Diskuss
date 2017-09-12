@@ -277,8 +277,8 @@
                 <Label x:Name="lblChatName" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold"/>
             </Grid>
             <Grid Background="#4F5154" Height="60" VerticalAlignment="Bottom">
-                <TextBox Height="40" Margin="10,10,40,10" FontSize="20" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Style="{DynamicResource tbxChat}" Background="#19FFFFFF" SelectionBrush="#FF3C3C3C" Foreground="#FFE6E6E6"/>
-                <Grid HorizontalAlignment="Right" Background="Transparent" Width="45" Cursor="Hand"/>
+                <TextBox x:Name="tbxMessage"  Height="40" Margin="10,10,40,10" FontSize="20" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Style="{DynamicResource tbxChat}" Background="#19FFFFFF" SelectionBrush="#FF3C3C3C" Foreground="#FFE6E6E6"/>
+                <Grid x:Name="btnSend" MouseDown="btnSend_MouseDown" HorizontalAlignment="Right" Background="Transparent" Width="45" Cursor="Hand"/>
                 <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform" Margin="0,0,15,0" Opacity=".8" HorizontalAlignment="Right" Width="21">
                     <Canvas Name="Layer_1" Width="512" Height="512" Canvas.Left="0" Canvas.Top="0">
                         <Canvas.RenderTransform>
