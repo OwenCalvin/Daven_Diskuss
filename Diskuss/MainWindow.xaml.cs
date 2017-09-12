@@ -38,7 +38,7 @@ namespace Diskuss {
 
         private void GrdConversations_OnConversationSelectedChange(object sender, Conversation e)
         {
-            
+            lblChatName.Content = e == null ? "" : e.Object.Name;
         }
 
         private void _diskuss_OnLogin(object sender, EventArgs e) {

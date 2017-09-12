@@ -213,6 +213,30 @@
                 </MultiTrigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="tbxChat" TargetType="TextBox" BasedOn="{StaticResource tbxForm}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" CornerRadius="20" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" Margin="16,0,8,0">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Window.Resources>
 
     <Grid Name="grdMain">
@@ -242,7 +266,7 @@
         </ScrollViewer>
         <Grid HorizontalAlignment="Left" Width="365" Margin="200,0,0,0" Background="#383c3f">
             <Grid Background="#303336" Height="90" VerticalAlignment="Top">
-                <Label x:Name="lblNick" Content="No nick" Foreground="White" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="30,0,0,0" FontFamily="Segoe UI Semibold"/>
+                <Label x:Name="lblNick" Foreground="White" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="30,0,0,0" FontFamily="Segoe UI Semibold"/>
             </Grid>
             <ScrollViewer Margin="0,100,0,0" >
                 <local:ConversationGrid x:Name="grdConversations" Background="#383c3f" Width="365"/>
@@ -250,9 +274,38 @@
         </Grid>
         <Grid Panel.ZIndex="-1" Margin="556,0,-0.4,-0.4" Background="#414347">
             <Grid Background="#383b3f" Height="90" VerticalAlignment="Top">
-                <Label Content="Not selected" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold"/>
+                <Label x:Name="lblChatName" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold"/>
             </Grid>
-            <Grid Background="White" Opacity="0.08" Height="60" VerticalAlignment="Bottom"/>
+            <Grid Background="#4F5154" Height="60" VerticalAlignment="Bottom">
+                <TextBox Height="40" Margin="10,10,40,10" FontSize="20" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Style="{DynamicResource tbxChat}" Background="#19FFFFFF" SelectionBrush="#FF3C3C3C" Foreground="#FFE6E6E6"/>
+                <Grid HorizontalAlignment="Right" Background="Transparent" Width="45" Cursor="Hand"/>
+                <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform" Margin="0,0,15,0" Opacity=".8" HorizontalAlignment="Right" Width="21">
+                    <Canvas Name="Layer_1" Width="512" Height="512" Canvas.Left="0" Canvas.Top="0">
+                        <Canvas.RenderTransform>
+                            <TranslateTransform X="0" Y="0"/>
+                        </Canvas.RenderTransform>
+                        <Canvas.Resources/>
+                        <Canvas Name="g6dfgh">
+                            <Canvas Name="gfg4">
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path2dfgh" Fill="#FFFFFFFF">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M491.318 235.318H20.682C9.26 235.318 0 244.578 0 256c0 11.423 9.26 20.682 20.682 20.682h470.636    c11.423 0 20.682-9.259 20.682-20.682C512 244.578 502.741 235.318 491.318 235.318z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                </Path>
+                            </Canvas>
+                        </Canvas>
+                        <Canvas Name="g1fh2">
+                            <Canvas Name="gfgh10">
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="pathdfhg8" Fill="#FFFFFFFF">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M505.942 241.375L329.454 64.887c-8.077-8.076-21.172-8.076-29.249 0c-8.076 8.077-8.076 21.172 0 29.249L462.069 256    L300.205 417.863c-8.076 8.077-8.076 21.172 0 29.249c4.038 4.039 9.332 6.058 14.625 6.058c5.293 0 10.587-2.019 14.625-6.058    l176.488-176.488C514.019 262.547 514.019 249.452 505.942 241.375z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                </Path>
+                            </Canvas>
+                        </Canvas>
+                    </Canvas>
+                </Viewbox>
+            </Grid>
         </Grid>
         <Grid HorizontalAlignment="Left" Cursor="Hand" Height="100" VerticalAlignment="Top" Width="100" Background="#23272A">
             <Border Width="76" Height="76" Background="#485056" VerticalAlignment="Bottom" HorizontalAlignment="Right" CornerRadius="100" Margin="0,0,12,12">

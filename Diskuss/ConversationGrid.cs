@@ -13,11 +13,15 @@ namespace Diskuss {
         public Conversation SelectedConversation {
             get { return _convSelectedConversation; }
             set {
-                if (_convSelectedConversation != null) {
-                    _convSelectedConversation.grdBack.Opacity = .5;
+                if (value != null)
+                {
+                    if (_convSelectedConversation != null)
+                    {
+                        _convSelectedConversation.grdBack.Opacity = .5;
+                    }
+                    value.grdBack.Opacity = 1;
                 }
                 _convSelectedConversation = value;
-                _convSelectedConversation.grdBack.Opacity = 1;
                 OnConversationSelectedChange?.Invoke(this, SelectedConversation);
             }
         }
@@ -39,6 +43,10 @@ namespace Diskuss {
 
         public void remove(Conversation _convObject)
         {
+            if(SelectedConversation == _convObject)
+            {
+                SelectedConversation = null;
+            }
             removeObject(_convObject);
             _convObject.Destination.add(_convObject);
         }
