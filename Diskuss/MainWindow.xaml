@@ -249,7 +249,9 @@
             </ScrollViewer>
         </Grid>
         <Grid Panel.ZIndex="-1" Margin="556,0,-0.4,-0.4" Background="#414347">
-            <Grid Background="#383b3f" Height="90" VerticalAlignment="Top"/>
+            <Grid Background="#383b3f" Height="90" VerticalAlignment="Top">
+                <Label Content="Not selected" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold"/>
+            </Grid>
             <Grid Background="White" Opacity="0.08" Height="60" VerticalAlignment="Bottom"/>
         </Grid>
         <Grid HorizontalAlignment="Left" Cursor="Hand" Height="100" VerticalAlignment="Top" Width="100" Background="#23272A">

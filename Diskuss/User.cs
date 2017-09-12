@@ -11,7 +11,7 @@ namespace Diskuss {
             set { Name = value; }
         }
 
-        public List<Channel> Channels { get; set; }
+        public Channel Channel { get; set; }
 
         public User() : base() { }
 

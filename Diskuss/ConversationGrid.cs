@@ -8,6 +8,22 @@ using System.Windows.Controls;
 
 namespace Diskuss {
     public class ConversationGrid : UserChannelGrid {
+        public event EventHandler<Conversation> OnConversationSelectedChange;
+        private Conversation _convSelectedConversation;
+        public Conversation SelectedConversation {
+            get { return _convSelectedConversation; }
+            set {
+                if (_convSelectedConversation != null) {
+                    _convSelectedConversation.grdBack.Opacity = .5;
+                }
+                _convSelectedConversation = value;
+                _convSelectedConversation.grdBack.Opacity = 1;
+                OnConversationSelectedChange?.Invoke(this, SelectedConversation);
+            }
+        }
+
+        public List<Conversation> Conversations { get { return Children.OfType<Conversation>().ToList(); } }
+
         public override void add(UserChannelObject _ucObject) {
             Conversation _convObject = new Conversation(_ucObject);
             _convObject.Parent = this;

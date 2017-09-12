@@ -32,16 +32,21 @@ namespace Diskuss {
             InitializeComponent();
             Object = _object;
             Destination = _object.Parent;
-            lblName.Content = Object.Name;
+            lblName.Content = Object.Name.Length > 6 ? $"{Object.Name.Substring(0, 5)}..." : Object.Name ;
             _object.lblFullName.Visibility = Visibility.Collapsed;
             grdObject.Children.Add(_object);
         }
 
-        private void Capa_1_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Close_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Object.lblFullName.Visibility = Visibility.Visible;
             grdObject.Children.Clear();
             Parent.remove(this);
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Parent.SelectedConversation = this;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows.Threading;
+using Newtonsoft.Json;
 
 namespace Diskuss {
     public class DiskussAPI {
@@ -19,6 +20,7 @@ namespace Diskuss {
 
         public event EventHandler<List<UserChannelObject>> OnUsers;
         public event EventHandler<List<UserChannelObject>> OnChannels;
+        public event EventHandler<Channel> OnChannelJoin;
         public event EventHandler OnLogin;
 
         public DiskussAPI(List<UserChannelObject> _lucoConversations, List<User> _luUsers, List<Channel> _lcChannel) {
@@ -36,30 +38,20 @@ namespace Diskuss {
         }
 
         public async void GetUsers() {
-            List<UserChannelObject> _lObjects = new List<UserChannelObject>();
-            // Obliger d'utiliser une autre liste sinon l'objet ne s'instancie pas correctement
-            new JavaScriptSerializer().Deserialize<List<User>>(await _httpRequester.GetAsync("users")).ForEach(e => {
-                if(e.Nick != Me.Nick)
-                    _lObjects.Add(new User(e.Nick));
-            });
-            OnUsers?.Invoke(this, _lObjects);
+            OnUsers?.Invoke(this, JsonConvert.DeserializeObject<List<User>>(await _httpRequester.GetAsync("users")).ToList<UserChannelObject>());
         }
 
         public async void GetChannels() {
-            List<UserChannelObject> _lObjects = new List<UserChannelObject>();
-            // Obliger d'utiliser une autre liste sinon l'objet ne s'instancie pas correctement
-            new JavaScriptSerializer().Deserialize<List<Channel>>(await _httpRequester.GetAsync("channels")).ForEach(e => { _lObjects.Add(new Channel(e.Name)); });
-            OnChannels?.Invoke(this, _lObjects);
+            OnChannels?.Invoke(this, JsonConvert.DeserializeObject<List<Channel>>(await _httpRequester.GetAsync("channels")).ToList<UserChannelObject>());
         }
         
-        public async void JoinChannel(string strName)
-        {
-            Channel test = new JavaScriptSerializer().Deserialize<Channel>(await _httpRequester.PutAsync($"/user/{Me.ID}/channels/{strName}/join/", strName));
-            Debug.WriteLine(test);
+        public async void JoinChannel(string strName) {
+            string obj = await _httpRequester.PutAsync($"user/{Me.ID}/channels/{strName}/join/", strName); // bizard
+            OnChannelJoin?.Invoke(this, JsonConvert.DeserializeObject<Channel>(obj));
         }
 
         public async void Login(string strNick, bool bUpdate) {
-            Me = new JavaScriptSerializer().Deserialize<Me>(await _httpRequester.PostAsync($"users/register/{strNick}", strNick));
+            Me = JsonConvert.DeserializeObject<Me>(await _httpRequester.PostAsync($"users/register/{strNick}", strNick));
             OnLogin?.Invoke(this, EventArgs.Empty);
             if (bUpdate) {
                 GetUsers();

@@ -29,18 +29,25 @@ namespace Diskuss {
             grdChannelsList.Destination = grdConversations;
             grdUsersList.Destination = grdConversations;
 
+
+            grdConversations.OnConversationSelectedChange += GrdConversations_OnConversationSelectedChange;
             _diskuss.OnLogin += _diskuss_OnLogin;
             _diskuss.OnUsers += _diskuss_OnUsers;
             _diskuss.OnChannels += _diskuss_OnChannels;
         }
 
-        private void _diskuss_OnLogin(object sender, EventArgs e) {
-            grdLogin.Visibility = Visibility.Collapsed;
-            lblNick.Content = _diskuss.Me.Nick;
+        private void GrdConversations_OnConversationSelectedChange(object sender, Conversation e)
+        {
+            
         }
 
-        private void _diskuss_OnChannels(object sender, List<UserChannelObject> _iyObjects) {
-            grdChannelsList.setChildren(_iyObjects);
+        private void _diskuss_OnLogin(object sender, EventArgs e) {
+            grdLogin.Visibility = Visibility.Collapsed;
+            lblNick.Content = _diskuss.Me.Name;
+        }
+
+        private void _diskuss_OnChannels(object sender, List<UserChannelObject> _lObjects) {
+            grdChannelsList.setChildren(_lObjects);
         }
 
         private void _diskuss_OnUsers(object sender, List<UserChannelObject> _lObject) {
