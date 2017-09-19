@@ -34,11 +34,29 @@ namespace Diskuss {
             _diskuss.OnLogin += _diskuss_OnLogin;
             _diskuss.OnUsers += _diskuss_OnUsers;
             _diskuss.OnChannels += _diskuss_OnChannels;
+            _diskuss.OnNewPrivateMessage += _diskuss_OnNewPrivateMessage;
+        }
+
+        private void _diskuss_OnNewPrivateMessage(object sender, string strMessage)
+        {
+            bool bMe = true;
+            
+            Message _msg = new Message(strMessage, bMe);
+            grdChat.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(60) });
+            Grid.SetRow(_msg, grdChat.RowDefinitions.Count - 1);
+            Grid.SetColumn(_msg, bMe ? 1 : 0);
+            grdChat.Children.Add(_msg);
         }
 
         private void GrdConversations_OnConversationSelectedChange(object sender, Conversation e)
         {
-            lblChatName.Content = e == null ? "" : e.Object.Name;
+            if ((lblChatName.Content = e) == null) {
+                lblChatName.Content = "";
+                msgForm.Visibility = Visibility.Collapsed;
+            } else {
+                lblChatName.Content = e.Object.Name;
+                msgForm.Visibility = Visibility.Visible;
+            }
         }
 
         private void _diskuss_OnLogin(object sender, EventArgs e) {
@@ -106,6 +124,12 @@ namespace Diskuss {
         private void btnSend_MouseDown(object sender, MouseButtonEventArgs e)
         {
             _diskuss.SendPrivateMessage(grdConversations.SelectedConversation.Object.Name, tbxMessage.Text);
+        }
+
+        private void tbxMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+                _diskuss.SendPrivateMessage(grdConversations.SelectedConversation.Object.Name, tbxMessage.Text);
         }
     }
 }

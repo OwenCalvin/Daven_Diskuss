@@ -19,6 +19,8 @@ namespace Diskuss {
         public UserChannelObject Object { get; set; }
         public new ConversationGrid Parent { get; set; }
         public UserChannelGrid Destination { get; set; }
+        public List<Message> Messages { get; set; }
+
         public int Y {
             get { return Grid.GetRow(this); }
             set { Grid.SetRow(this, value); }

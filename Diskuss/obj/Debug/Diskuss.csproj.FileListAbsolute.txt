@@ -42,3 +42,5 @@ D:\Owen\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.Properties.Resources.resources
 D:\Owen\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.csproj.GenerateResource.Cache
 D:\Owen\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.exe
 D:\Owen\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.pdb
+D:\Owen\Daven_Diskuss\Diskuss\obj\Debug\Message.g.cs
+D:\Owen\Daven_Diskuss\Diskuss\obj\Debug\Message.baml

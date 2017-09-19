@@ -23,11 +23,18 @@ namespace Diskuss {
         public event EventHandler<Channel> OnChannelJoin;
         public event EventHandler OnLogin;
         public event EventHandler<string> OnSendPrivateMessage;
+        public event EventHandler<string> OnNewPrivateMessage;
 
         public DiskussAPI(List<UserChannelObject> _lucoConversations, List<User> _luUsers, List<Channel> _lcChannel) {
             _tmr.Tick += async (sender, args) => {
                 if (Me != null) {
-                    Debug.WriteLine(new JavaScriptSerializer().Deserialize<List<Notice>>(await _httpRequester.GetAsync($"user/{Me.ID}/notices")));
+                    string res = await _httpRequester.GetAsync($"user/{Me.ID}/notices");
+                    if (res != "[]")
+                    {
+                        Debug.WriteLine(res);
+                        List<Notice> _lNotices = JsonConvert.DeserializeObject<List<Notice>>(res);
+                        ExecuteNotices(_lNotices);
+                    }
                     GetUsers();
                     GetChannels();
                 }
@@ -47,12 +54,13 @@ namespace Diskuss {
         }
         
         public async void JoinChannel(string strName) {
-            string obj = await _httpRequester.PutAsync($"user/{Me.ID}/channels/{strName}/join/", strName); // bizard
+            string obj = await _httpRequester.PutAsync($"user/{Me.ID}/channels/{strName}/join/", strName, "");
             OnChannelJoin?.Invoke(this, JsonConvert.DeserializeObject<Channel>(obj));
         }
 
         public async void SendPrivateMessage(string Nick, string Message) {
-            OnSendPrivateMessage?.Invoke(this, await _httpRequester.PutAsync($"user/{Me.ID}/message/{Nick}/?message={Message}", Message));
+            string obj = await _httpRequester.PutAsync($"user/{Me.ID}/message/{Nick}/", Message, "message");
+            OnSendPrivateMessage?.Invoke(this, obj);
         }
 
         public async void Login(string strNick, bool bUpdate) {
@@ -62,6 +70,20 @@ namespace Diskuss {
                 GetUsers();
                 GetChannels();
             }
+        }
+
+        public void ExecuteNotices(List<Notice> _lNotices)
+        {
+            _lNotices.ForEach(e => {
+                Debug.WriteLine(e.Type);
+                switch(e.Type)
+                {
+                    case "privateMessage":
+                        Debug.WriteLine(e.Type);
+                        OnNewPrivateMessage?.Invoke(this, e.Message);
+                        break;
+                }
+            });
         }
     }
 }
