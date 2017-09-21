@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -35,33 +36,48 @@ namespace Diskuss {
             _diskuss.OnUsers += _diskuss_OnUsers;
             _diskuss.OnChannels += _diskuss_OnChannels;
             _diskuss.OnNewPrivateMessage += _diskuss_OnNewPrivateMessage;
+            _diskuss.OnSendPrivateMessage += _diskuss_OnSendPrivateMessage;
         }
 
-        private void _diskuss_OnNewPrivateMessage(object sender, string strMessage)
-        {
-            bool bMe = true;
-            
-            Message _msg = new Message(strMessage, bMe);
-            grdChat.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(60) });
-            Grid.SetRow(_msg, grdChat.RowDefinitions.Count - 1);
-            Grid.SetColumn(_msg, bMe ? 1 : 0);
-            grdChat.Children.Add(_msg);
+        private void _diskuss_OnSendPrivateMessage(object sender, Message _msg) {
+            grdConversations.SelectedConversation.addMessage(_msg);
+            addMessage(_msg);
         }
 
-        private void GrdConversations_OnConversationSelectedChange(object sender, Conversation e)
+        private void _diskuss_OnNewPrivateMessage(object sender, Message _msg)
         {
-            if ((lblChatName.Content = e) == null) {
+            UserChannelObject _ucUser = grdUsersList.Children.OfType<UserChannelObject>().FirstOrDefault(x => x.Name == _msg.Sender);
+            if (_ucUser != null) {
+                grdUsersList.remove(_ucUser);
+                grdConversations.add(_ucUser);
+            }
+
+            Conversation _convUser = grdConversations.getConversation(_msg.Sender);
+            _convUser.addMessage(_msg);
+            if (_convUser != grdConversations.SelectedConversation) {
+                _convUser.Notifications = ++_convUser.Notifications;
+            } else {
+                addMessage(_msg);
+            }
+        }
+
+        private void GrdConversations_OnConversationSelectedChange(object sender, Conversation _conv) {
+            grdChat.Children.Clear();
+            grdChat.RowDefinitions.Clear();
+            tbxMessage.Text = null;
+            if ((lblChatName.Content = _conv) == null) {
                 lblChatName.Content = "";
                 msgForm.Visibility = Visibility.Collapsed;
             } else {
-                lblChatName.Content = e.Object.Name;
+                lblChatName.Content = _conv.Object.Name.Length > 25 ? $"{_conv.Object.Name.Substring(0, 25)}..." : _conv.Object.Name;
                 msgForm.Visibility = Visibility.Visible;
+                _conv.Messages.ForEach(e => { addMessage(e); });
             }
         }
 
         private void _diskuss_OnLogin(object sender, EventArgs e) {
             grdLogin.Visibility = Visibility.Collapsed;
-            lblNick.Content = _diskuss.Me.Name;
+            lblNick.Content = _diskuss.Me.Name.Length > 13 ? $"{_diskuss.Me.Name.Substring(0, 13)}..." : _diskuss.Me.Name;
         }
 
         private void _diskuss_OnChannels(object sender, List<UserChannelObject> _lObjects) {
@@ -130,6 +146,13 @@ namespace Diskuss {
         {
             if(e.Key == Key.Enter)
                 _diskuss.SendPrivateMessage(grdConversations.SelectedConversation.Object.Name, tbxMessage.Text);
+        }
+
+        private void addMessage(Message _msg) {
+            grdChat.RowDefinitions.Add(new RowDefinition() { Height = new GridLength() });
+            Grid.SetRow(_msg, grdChat.RowDefinitions.Count - 1);
+            Grid.SetColumn(_msg, _msg.Me ? 1 : 0);
+            grdChat.Children.Add(_msg);
         }
     }
 }

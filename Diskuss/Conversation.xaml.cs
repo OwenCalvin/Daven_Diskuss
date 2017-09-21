@@ -19,7 +19,20 @@ namespace Diskuss {
         public UserChannelObject Object { get; set; }
         public new ConversationGrid Parent { get; set; }
         public UserChannelGrid Destination { get; set; }
-        public List<Message> Messages { get; set; }
+
+
+
+        public List<Message> Messages { get; set; } = new List<Message>();
+        private int iNotifications { get; set; } = 0;
+
+        public int Notifications {
+            get { return iNotifications; }
+            set {
+                lblNotifications.Content = value;
+                iNotifications = value;
+                brdNotifications.Visibility = value < 1 ? Visibility.Hidden : Visibility.Visible;
+            }
+        }
 
         public int Y {
             get { return Grid.GetRow(this); }
@@ -34,7 +47,7 @@ namespace Diskuss {
             InitializeComponent();
             Object = _object;
             Destination = _object.Parent;
-            lblName.Content = Object.Name.Length > 6 ? $"{Object.Name.Substring(0, 5)}..." : Object.Name ;
+            lblName.Content = Object.Name.Length > 6 ? $"{Object.Name.Substring(0, 6)}..." : Object.Name ;
             _object.lblFullName.Visibility = Visibility.Collapsed;
             grdObject.Children.Add(_object);
         }
@@ -49,6 +62,11 @@ namespace Diskuss {
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Parent.SelectedConversation = this;
+        }
+
+        public void addMessage(Message _msg) {
+            lblLastMessage.Content = _msg.Text.Length > 10 ? $"{_msg.Text.Substring(0, 10)}..." : _msg.Text;
+            Messages.Add(_msg);
         }
     }
 }

@@ -21,15 +21,19 @@
     </UserControl.Resources>
     <Viewbox>
         <Grid x:Name="grdBack" Opacity=".5">
-            <Grid Margin="0,0,88,0" Panel.ZIndex="2" Background="Transparent" Cursor="Hand" MouseDown="Grid_MouseDown"/>
-            <Grid Margin="979,0,0,0" Panel.ZIndex="1" Background="Transparent" Cursor="Hand" MouseDown="Close_MouseDown"/>
+            <Grid Margin="0,0,88,0" Panel.ZIndex="2" Background="Transparent" Cursor="Hand" MouseDown="Grid_MouseDown">
+                <Border x:Name="brdNotifications" Visibility="Collapsed" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="100" Width="100" CornerRadius="100" Background="#4CFFFFFF" >
+                    <Label x:Name="lblNotifications" Content="0" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontFamily="Segoe UI Semibold" />
+                </Border>
+            </Grid>
+            <Grid Margin="1005,0,0.4,0.4" Panel.ZIndex="1" Background="Transparent" Cursor="Hand" MouseDown="Close_MouseDown"/>
             <Grid Margin="0,0,0,0" Width="1062" MouseDown="Grid_MouseDown">
-                <Label Name="lblName" Content="Label" Margin="472,0,-1,185.2" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="120"/>
-                <Label Name="lblLastMessage" Content="Last message" Margin="472,195,7,-15.8" FontFamily="Segoe UI Light" Foreground="White" FontSize="70"/>
+                <Label Name="lblName" Content="Label" Margin="472,0,-1,185.2" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="110"/>
+                <Label Name="lblLastMessage" Content="Last message" Margin="472,195,7,-15.8" FontFamily="Segoe UI Light" Foreground="White" FontSize="60"/>
                 <Grid Name="grdObject" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Center" Height="257" Width="259"/>
-                <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="Capa_1" HorizontalAlignment="Right" Width="212.982" Height="212.982" Canvas.Left="0" Canvas.Top="0" Cursor="Hand">
+                <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="Capa_1" HorizontalAlignment="Right" Width="213" Canvas.Left="0" Canvas.Top="0" Cursor="Hand" Margin="0,87,0,0.4">
                     <Canvas Name="Close">
-                        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4" Fill="#AAFFFFFF" Data="M131.804 106.491l75.936-75.936c6.99-6.99 6.99-18.323 0-25.312   c-6.99-6.99-18.322-6.99-25.312 0l-75.937 75.937L30.554 5.242c-6.99-6.99-18.322-6.99-25.312 0c-6.989 6.99-6.989 18.323 0 25.312   l75.937 75.936L5.242 182.427c-6.989 6.99-6.989 18.323 0 25.312c6.99 6.99 18.322 6.99 25.312 0l75.937-75.937l75.937 75.937   c6.989 6.99 18.322 6.99 25.312 0c6.99-6.99 6.99-18.322 0-25.312L131.804 106.491z" Height="74.612" Stretch="Fill" Width="74.612" Canvas.Left="138.194" Canvas.Top="59.734"/>
+                        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4" Fill="#AAFFFFFF" Data="M131.804 106.491l75.936-75.936c6.99-6.99 6.99-18.323 0-25.312   c-6.99-6.99-18.322-6.99-25.312 0l-75.937 75.937L30.554 5.242c-6.99-6.99-18.322-6.99-25.312 0c-6.989 6.99-6.989 18.323 0 25.312   l75.937 75.936L5.242 182.427c-6.989 6.99-6.989 18.323 0 25.312c6.99 6.99 18.322 6.99 25.312 0l75.937-75.937l75.937 75.937   c6.989 6.99 18.322 6.99 25.312 0c6.99-6.99 6.99-18.322 0-25.312L131.804 106.491z" Height="52.892" Stretch="Fill" Width="51.003" Canvas.Left="162.009" Canvas.Top="60"/>
                     </Canvas>
                 </Canvas>
             </Grid>

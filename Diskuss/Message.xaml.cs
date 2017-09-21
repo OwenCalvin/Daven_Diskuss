@@ -17,9 +17,25 @@ namespace Diskuss
 {
     public partial class Message : UserControl
     {
+        private bool bMe;
+        public bool Me {
+            get { return bMe; }
+            set {
+                bMe = value;
+                if(bMe) {
+                    brdMain.HorizontalAlignment = HorizontalAlignment.Right;
+                    brdMain.Background = (Brush)(new BrushConverter().ConvertFrom("#1CFFFFFF"));
+                } else {
+                    brdMain.HorizontalAlignment = HorizontalAlignment.Left;
+                }
+            }
+        }
+
+        public string Sender { get; set; }
+
         public string Text {
-            get { return lblMessage.Content.ToString(); }
-            set { lblMessage.Content = value; }
+            get { return lblMessage.Text.ToString(); }
+            set { lblMessage.Text = value; }
         }
 
         public Message()
@@ -31,7 +47,14 @@ namespace Diskuss
         {
             InitializeComponent();
             Text = strMessage;
-            lblMessage.HorizontalContentAlignment = bMe ? HorizontalAlignment.Right : HorizontalAlignment.Left;
+            Me = bMe;
+        }
+
+        public Message(string strMessage, bool bMe, string strSender) {
+            InitializeComponent();
+            Text = strMessage;
+            Me = bMe;
+            Sender = strSender;
         }
     }
 }

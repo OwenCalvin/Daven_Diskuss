@@ -13,13 +13,12 @@ namespace Diskuss {
         public Conversation SelectedConversation {
             get { return _convSelectedConversation; }
             set {
-                if (value != null)
-                {
-                    if (_convSelectedConversation != null)
-                    {
+                if (value != null) {
+                    if (_convSelectedConversation != null) {
                         _convSelectedConversation.grdBack.Opacity = .5;
                     }
                     value.grdBack.Opacity = 1;
+                    value.Notifications = 0;
                 }
                 _convSelectedConversation = value;
                 OnConversationSelectedChange?.Invoke(this, SelectedConversation);
@@ -29,7 +28,10 @@ namespace Diskuss {
         public List<Conversation> Conversations { get { return Children.OfType<Conversation>().ToList(); } }
 
         public override void add(UserChannelObject _ucObject) {
-            Conversation _convObject = new Conversation(_ucObject);
+            add(new Conversation(_ucObject));
+        }
+
+        public override void add(Conversation _convObject) {
             _convObject.Parent = this;
             grd.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100) });
             _convObject.Y = grd.RowDefinitions.Count - 1;
@@ -58,6 +60,10 @@ namespace Diskuss {
             grd.Children.OfType<IY>().ToArray().Where(_iyE => _iyE.Y > _iyObject.Y).ToList().ForEach(_iyE => {
                 _iyE.Y -= 1;
             });
+        }
+
+        public Conversation getConversation(string Name) {
+            return Conversations.FirstOrDefault(x => x.Object.Name == Name);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows.Threading;
 using Newtonsoft.Json;
+using System.Collections;
 
 namespace Diskuss {
     public class DiskussAPI {
@@ -22,8 +23,8 @@ namespace Diskuss {
         public event EventHandler<List<UserChannelObject>> OnChannels;
         public event EventHandler<Channel> OnChannelJoin;
         public event EventHandler OnLogin;
-        public event EventHandler<string> OnSendPrivateMessage;
-        public event EventHandler<string> OnNewPrivateMessage;
+        public event EventHandler<Message> OnSendPrivateMessage;
+        public event EventHandler<Message> OnNewPrivateMessage;
 
         public DiskussAPI(List<UserChannelObject> _lucoConversations, List<User> _luUsers, List<Channel> _lcChannel) {
             _tmr.Tick += async (sender, args) => {
@@ -60,7 +61,7 @@ namespace Diskuss {
 
         public async void SendPrivateMessage(string Nick, string Message) {
             string obj = await _httpRequester.PutAsync($"user/{Me.ID}/message/{Nick}/", Message, "message");
-            OnSendPrivateMessage?.Invoke(this, obj);
+            OnSendPrivateMessage?.Invoke(this, new Message(Message, true));
         }
 
         public async void Login(string strNick, bool bUpdate) {
@@ -80,7 +81,7 @@ namespace Diskuss {
                 {
                     case "privateMessage":
                         Debug.WriteLine(e.Type);
-                        OnNewPrivateMessage?.Invoke(this, e.Message);
+                        OnNewPrivateMessage?.Invoke(this, new Message(e.Message, false, e.Sender));
                         break;
                 }
             });

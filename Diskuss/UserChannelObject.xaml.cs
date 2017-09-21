@@ -17,6 +17,7 @@ namespace Diskuss {
     public partial class UserChannelObject : UserControl, IY{
         public new  UserChannelGrid Parent;
         private string strName;
+
         public new string Name {
             get { return strName; }
             set {
@@ -25,6 +26,7 @@ namespace Diskuss {
                 lblFullName.Content = Name.Length > 6 ? $"{Name.Substring(0, 5)}..." : Name;
             }
         }
+
         public int Y {
             get { return Grid.GetRow(this); }
             set { Grid.SetRow(this, value); }
