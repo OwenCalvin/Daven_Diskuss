@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Diskuss {
-    public class Notice
-    {
+    public class Notice {
         public string Type { get; set; }
         public string Nick { get; set; }
         public Channel Channel { get; set; }

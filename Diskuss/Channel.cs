@@ -9,21 +9,17 @@ namespace Diskuss {
     public class Channel : UserChannelObject {
         public string Description { get; set; }
         public bool Keep { get; set; }
-
-        private User _uOwner;
-        public User Owner { get { return _uOwner; } }
+        public User Owner { get; set; }
 
         public Channel() : base() { Init(); }
 
         public Channel(string Name) : base(Name) { Init(); }
 
-        public void setOwner (string Name)
-        {
-            _uOwner = new User(Name);
+        public void SetOwner (string Name) {
+            Owner = new User(Name);
         }
 
-        private void Init()
-        {
+        private void Init() {
             brdBack.Background = (Brush)(new BrushConverter().ConvertFrom("#2E3438"));
         }
     }

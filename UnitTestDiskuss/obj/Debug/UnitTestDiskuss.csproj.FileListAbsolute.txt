@@ -10,3 +10,23 @@ D:\Owen\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Microsoft.VisualStudio.TestPlatf
 D:\Owen\Daven_Diskuss\UnitTestDiskuss\obj\Debug\UnitTestDiskuss.csprojResolveAssemblyReference.cache
 D:\Owen\Daven_Diskuss\UnitTestDiskuss\obj\Debug\UnitTestDiskuss.dll
 D:\Owen\Daven_Diskuss\UnitTestDiskuss\obj\Debug\UnitTestDiskuss.pdb
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\fr\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\fr\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\fr\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\UnitTestDiskuss.dll
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\UnitTestDiskuss.pdb
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Diskuss.exe
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Newtonsoft.Json.dll
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Diskuss.pdb
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Diskuss.exe.config
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\bin\Debug\Newtonsoft.Json.xml
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\obj\Debug\UnitTestDiskuss.csprojResolveAssemblyReference.cache
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\obj\Debug\UnitTestDiskuss.dll
+D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\UnitTestDiskuss\obj\Debug\UnitTestDiskuss.pdb

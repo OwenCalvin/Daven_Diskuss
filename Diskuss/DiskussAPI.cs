@@ -11,9 +11,9 @@ using System.Collections;
 
 namespace Diskuss {
     public class DiskussAPI {
-        HttpRequest _httpRequester = new HttpRequest("http://localhost:8081/");
-
         public Me Me { get; set; }
+
+        private HttpRequest _httpRequester = new HttpRequest("http://localhost:8081/");
         private DispatcherTimer _tmr = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1), IsEnabled = true };
         private List<UserChannelObject> _lucoConversations;
         private List<User> _luUsers;
@@ -26,24 +26,21 @@ namespace Diskuss {
         public event EventHandler<Message> OnSendPrivateMessage;
         public event EventHandler<Message> OnNewPrivateMessage;
 
-        public DiskussAPI(List<UserChannelObject> _lucoConversations, List<User> _luUsers, List<Channel> _lcChannel) {
+        public DiskussAPI(List<UserChannelObject> Conversations, List<User> Users, List<Channel> Channels) {
             _tmr.Tick += async (sender, args) => {
                 if (Me != null) {
                     string res = await _httpRequester.GetAsync($"user/{Me.ID}/notices");
-                    if (res != "[]")
-                    {
-                        Debug.WriteLine(res);
-                        List<Notice> _lNotices = JsonConvert.DeserializeObject<List<Notice>>(res);
-                        ExecuteNotices(_lNotices);
+                    if (res != "[]") {
+                        ExecuteNotices(JsonConvert.DeserializeObject<List<Notice>>(res));
                     }
                     GetUsers();
                     GetChannels();
                 }
             };
 
-            this._lucoConversations = _lucoConversations;
-            this._luUsers = _luUsers;
-            this._lcChannel = _lcChannel;
+            _lucoConversations = Conversations;
+            _luUsers = Users;
+            _lcChannel = Channels;
         }
 
         public async void GetUsers() {
@@ -54,8 +51,8 @@ namespace Diskuss {
             OnChannels?.Invoke(this, JsonConvert.DeserializeObject<List<Channel>>(await _httpRequester.GetAsync("channels")).ToList<UserChannelObject>());
         }
         
-        public async void JoinChannel(string strName) {
-            string obj = await _httpRequester.PutAsync($"user/{Me.ID}/channels/{strName}/join/", strName, "");
+        public async void JoinChannel(string Name) {
+            string obj = await _httpRequester.PutAsync($"user/{Me.ID}/channels/{Name}/join/", Name, "");
             OnChannelJoin?.Invoke(this, JsonConvert.DeserializeObject<Channel>(obj));
         }
 
@@ -64,23 +61,19 @@ namespace Diskuss {
             OnSendPrivateMessage?.Invoke(this, new Message(Message, true));
         }
 
-        public async void Login(string strNick, bool bUpdate) {
-            Me = JsonConvert.DeserializeObject<Me>(await _httpRequester.PostAsync($"users/register/{strNick}", strNick));
+        public async void Login(string Nick, bool Update) {
+            Me = JsonConvert.DeserializeObject<Me>(await _httpRequester.PostAsync($"users/register/{Nick}", Nick));
             OnLogin?.Invoke(this, EventArgs.Empty);
-            if (bUpdate) {
+            if (Update) {
                 GetUsers();
                 GetChannels();
             }
         }
 
-        public void ExecuteNotices(List<Notice> _lNotices)
-        {
-            _lNotices.ForEach(e => {
-                Debug.WriteLine(e.Type);
-                switch(e.Type)
-                {
+        public void ExecuteNotices(List<Notice> Notices) {
+            Notices.ForEach(e => {
+                switch(e.Type) {
                     case "privateMessage":
-                        Debug.WriteLine(e.Type);
                         OnNewPrivateMessage?.Invoke(this, new Message(e.Message, false, e.Sender));
                         break;
                 }

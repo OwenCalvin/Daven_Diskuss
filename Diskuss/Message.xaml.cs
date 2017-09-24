@@ -13,10 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Diskuss
-{
-    public partial class Message : UserControl
-    {
+namespace Diskuss {
+    public partial class Message : UserControl {
         private bool bMe;
         public bool Me {
             get { return bMe; }
@@ -38,23 +36,21 @@ namespace Diskuss
             set { lblMessage.Text = value; }
         }
 
-        public Message()
-        {
+        public Message() {
             InitializeComponent();
         }
 
-        public Message(string strMessage, bool bMe)
-        {
+        public Message(string Message, bool Me) {
             InitializeComponent();
-            Text = strMessage;
-            Me = bMe;
+            this.Text = Message;
+            this.Me = Me;
         }
 
-        public Message(string strMessage, bool bMe, string strSender) {
+        public Message(string Message, bool Me, string Sender) {
             InitializeComponent();
-            Text = strMessage;
-            Me = bMe;
-            Sender = strSender;
+            this.Text = Message;
+            this.Me = Me;
+            this.Sender = Sender;
         }
     }
 }

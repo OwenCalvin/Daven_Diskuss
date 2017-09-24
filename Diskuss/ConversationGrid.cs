@@ -8,7 +8,8 @@ using System.Windows.Controls;
 
 namespace Diskuss {
     public class ConversationGrid : UserChannelGrid {
-        public event EventHandler<Conversation> OnConversationSelectedChange;
+        public List<Conversation> Conversations { get { return Children.OfType<Conversation>().ToList(); } }
+
         private Conversation _convSelectedConversation;
         public Conversation SelectedConversation {
             get { return _convSelectedConversation; }
@@ -24,45 +25,42 @@ namespace Diskuss {
                 OnConversationSelectedChange?.Invoke(this, SelectedConversation);
             }
         }
+        
+        public event EventHandler<Conversation> OnConversationSelectedChange;
 
-        public List<Conversation> Conversations { get { return Children.OfType<Conversation>().ToList(); } }
-
-        public override void add(UserChannelObject _ucObject) {
-            add(new Conversation(_ucObject));
+        public override void Add(UserChannelObject Object) {
+            Add(new Conversation(Object));
         }
 
-        public override void add(Conversation _convObject) {
-            _convObject.Parent = this;
+        public override void Add(Conversation Object) {
+            Object.Parent = this;
             grd.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100) });
-            _convObject.Y = grd.RowDefinitions.Count - 1;
-            grd.Children.Add(_convObject);
+            Object.Y = grd.RowDefinitions.Count - 1;
+            grd.Children.Add(Object);
         }
 
-        public override void remove(UserChannelObject _ucObject) {
-            Conversation _convObject = new Conversation(_ucObject);
-            removeObject(_convObject);
+        public override void Remove(UserChannelObject Object) {
+            Conversation _convObject = new Conversation(Object);
+            RemoveObject(_convObject);
         }
 
-        public void remove(Conversation _convObject)
-        {
-            if(SelectedConversation == _convObject)
-            {
+        public void Remove(Conversation Object) {
+            if(SelectedConversation == Object) {
                 SelectedConversation = null;
             }
-            removeObject(_convObject);
-            _convObject.Destination.add(_convObject);
+            RemoveObject(Object);
+            Object.Destination.Add(Object);
         }
 
-        private void removeObject(IY _iyObject)
-        {
-            grd.RowDefinitions.RemoveAt(_iyObject.Y);
-            grd.Children.Remove((UIElement)_iyObject);
-            grd.Children.OfType<IY>().ToArray().Where(_iyE => _iyE.Y > _iyObject.Y).ToList().ForEach(_iyE => {
+        private void RemoveObject(IY Object) {
+            grd.RowDefinitions.RemoveAt(Object.Y);
+            grd.Children.Remove((UIElement) Object);
+            grd.Children.OfType<IY>().ToArray().Where(_iyE => _iyE.Y > Object.Y).ToList().ForEach(_iyE => {
                 _iyE.Y -= 1;
             });
         }
 
-        public Conversation getConversation(string Name) {
+        public Conversation GetConversation(string Name) {
             return Conversations.FirstOrDefault(x => x.Object.Name == Name);
         }
     }

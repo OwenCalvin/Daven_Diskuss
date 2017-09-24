@@ -243,7 +243,7 @@
 
     <Grid Name="grdMain">
         <Grid Name="grdLogin" Panel.ZIndex="9999" Background="#DF2c2f33">
-            <Canvas Name="Cross" MouseDown="Cross_MouseDown" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Width="759" Cursor="Hand" Visibility="Collapsed">
+            <Canvas Name="cnvCross" MouseDown="Cross_MouseDown" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Width="759" Cursor="Hand" Visibility="Collapsed">
                 <Canvas.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>

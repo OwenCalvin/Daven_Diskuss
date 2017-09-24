@@ -15,9 +15,14 @@ using System.Windows.Shapes;
 
 namespace Diskuss {
     public partial class UserChannelObject : UserControl, IY{
-        public new  UserChannelGrid Parent;
-        private string strName;
+        public new UserChannelGrid Parent { get; set; }
+        
+        public int Y {
+            get { return Grid.GetRow(this); }
+            set { Grid.SetRow(this, value); }
+        }
 
+        private string strName;
         public new string Name {
             get { return strName; }
             set {
@@ -27,18 +32,13 @@ namespace Diskuss {
             }
         }
 
-        public int Y {
-            get { return Grid.GetRow(this); }
-            set { Grid.SetRow(this, value); }
-        }
-
         public UserChannelObject() {
             InitializeComponent();
         }
 
-        public UserChannelObject(string strName) {
+        public UserChannelObject(string Name) {
             InitializeComponent();
-            Name = strName;
+            this.Name = Name;
         }
     }
 }

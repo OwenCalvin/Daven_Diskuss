@@ -19,12 +19,14 @@ namespace Diskuss {
         public UserChannelObject Object { get; set; }
         public new ConversationGrid Parent { get; set; }
         public UserChannelGrid Destination { get; set; }
-
-
-
         public List<Message> Messages { get; set; } = new List<Message>();
-        private int iNotifications { get; set; } = 0;
 
+        public int Y {
+            get { return Grid.GetRow(this); }
+            set { Grid.SetRow(this, value); }
+        }
+
+        private int iNotifications { get; set; } = 0;
         public int Notifications {
             get { return iNotifications; }
             set {
@@ -34,39 +36,41 @@ namespace Diskuss {
             }
         }
 
-        public int Y {
-            get { return Grid.GetRow(this); }
-            set { Grid.SetRow(this, value); }
+        private bool bDisconnected = false;
+        public bool Disconnected {
+            get { return bDisconnected; }
+            set {
+                lblName.Foreground = value ? Brushes.Red : Brushes.White;
+                bDisconnected = value;
+            }
         }
 
         public Conversation() {
             InitializeComponent();
         }
 
-        public Conversation(UserChannelObject _object) {
+        public Conversation(UserChannelObject Object) {
             InitializeComponent();
-            Object = _object;
-            Destination = _object.Parent;
+            this.Object = Object;
+            Destination = Object.Parent;
             lblName.Content = Object.Name.Length > 6 ? $"{Object.Name.Substring(0, 6)}..." : Object.Name ;
-            _object.lblFullName.Visibility = Visibility.Collapsed;
-            grdObject.Children.Add(_object);
+            Object.lblFullName.Visibility = Visibility.Collapsed;
+            grdObject.Children.Add(Object);
         }
 
-        private void Close_MouseDown(object sender, MouseButtonEventArgs e)
-        {
+        private void Close_MouseDown(object sender, MouseButtonEventArgs e) {
             Object.lblFullName.Visibility = Visibility.Visible;
             grdObject.Children.Clear();
-            Parent.remove(this);
+            Parent.Remove(this);
         }
 
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e) {
             Parent.SelectedConversation = this;
         }
 
-        public void addMessage(Message _msg) {
-            lblLastMessage.Content = _msg.Text.Length > 10 ? $"{_msg.Text.Substring(0, 10)}..." : _msg.Text;
-            Messages.Add(_msg);
+        public void AddMessage(Message Message) {
+            lblLastMessage.Content = Message.Text.Length > 10 ? $"{Message.Text.Substring(0, 10)}..." : Message.Text;
+            Messages.Add(Message);
         }
     }
 }

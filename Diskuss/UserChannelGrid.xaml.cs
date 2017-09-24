@@ -18,51 +18,52 @@ namespace Diskuss {
     public partial class UserChannelGrid : Grid {
         public ConversationGrid Destination { get; set; }
 
+        public List<UserChannelObject> Objects {
+            get { return Children.OfType<UserChannelObject>().ToList(); }
+            set {
+                grd.Children.Clear();
+                grd.RowDefinitions.Clear();
+
+                value.ForEach(_ucObject => {
+                    _ucObject.MouseDown += (sender, e) => {
+                        Remove(_ucObject);
+                        if (Destination != null) {
+                            Destination.Add(_ucObject);
+                        }
+                    };
+
+                    Add(_ucObject);
+                });
+            }
+        } 
+
         public UserChannelGrid() {
             InitializeComponent();
         }
 
-        public virtual void remove(UserChannelObject _ucObject) {
-            grd.RowDefinitions.RemoveAt(_ucObject.Y);
-            grd.Children.Remove(_ucObject);
-            grd.Children.OfType<IY>().ToArray().Where(_iyE => _iyE.Y > _ucObject.Y).ToList().ForEach(_iyE => {
+        public virtual void Remove(UserChannelObject Object) {
+            grd.RowDefinitions.RemoveAt(Object.Y);
+            grd.Children.Remove(Object);
+            grd.Children.OfType<IY>().ToArray().Where(_iyE => _iyE.Y > Object.Y).ToList().ForEach(_iyE => {
                 _iyE.Y -= 1;
             });
         }
 
-        public virtual void add(UserChannelObject _ucObject) {
-            addObject(_ucObject);
+        public virtual void Add(UserChannelObject Object) {
+            AddObject(Object);
         }
 
-        public virtual void add(Conversation _convObject)
-        {
-            addObject(_convObject.Object);
+        public virtual void Add(Conversation Conversation) {
+            AddObject(Conversation.Object);
         }
 
-        private void addObject(UserChannelObject _ucObject)
-        {
-            if (!grd.Children.OfType<UserChannelObject>().Any(e => e.Name == _ucObject.Name) && !Destination.Children.OfType<Conversation>().Any(e => e.Object.Name == _ucObject.Name))
-            {
-                _ucObject.Parent = this;
+        private void AddObject(UserChannelObject Object) {
+            if (!grd.Children.OfType<UserChannelObject>().Any(e => e.Name == Object.Name) && !Destination.Children.OfType<Conversation>().Any(e => e.Object.Name == Object.Name)) {
+                Object.Parent = this;
                 grd.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100) });
-                _ucObject.Y = grd.RowDefinitions.Count - 1;
-                grd.Children.Add(_ucObject);
+                Object.Y = grd.RowDefinitions.Count - 1;
+                grd.Children.Add(Object);
             }
-        }
-
-        public void setChildren(List<UserChannelObject> _iyObjects) {
-            grd.Children.Clear();
-            grd.RowDefinitions.Clear();
-
-            _iyObjects.ForEach(_ucObject => {
-                _ucObject.MouseDown += (sender, e) => {
-                    remove(_ucObject);
-                    if (Destination != null)
-                        Destination.add(_ucObject);
-                };
-
-                add(_ucObject);
-            });
         }
     }
 }
