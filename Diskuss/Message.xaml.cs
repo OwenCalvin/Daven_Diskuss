@@ -15,16 +15,19 @@ using System.Windows.Shapes;
 
 namespace Diskuss {
     public partial class Message : UserControl {
-        private bool bMe;
-        public bool Me {
-            get { return bMe; }
+        private int iMe;
+        public int Me {
+            get { return iMe; }
             set {
-                bMe = value;
-                if(bMe) {
+                iMe = value;
+                if(Me >= 1) {
                     brdMain.HorizontalAlignment = HorizontalAlignment.Right;
                     brdMain.Background = (Brush)(new BrushConverter().ConvertFrom("#1CFFFFFF"));
-                } else {
+                } else if(Me == 0) {
                     brdMain.HorizontalAlignment = HorizontalAlignment.Left;
+                } else {
+                    brdMain.Background = Brushes.Transparent;
+                    brdMain.HorizontalAlignment = HorizontalAlignment.Center;
                 }
             }
         }
@@ -40,13 +43,13 @@ namespace Diskuss {
             InitializeComponent();
         }
 
-        public Message(string Message, bool Me) {
+        public Message(string Message, int Me) {
             InitializeComponent();
             this.Text = Message;
             this.Me = Me;
         }
 
-        public Message(string Message, bool Me, string Sender) {
+        public Message(string Message, int Me, string Sender) {
             InitializeComponent();
             this.Text = Message;
             this.Me = Me;

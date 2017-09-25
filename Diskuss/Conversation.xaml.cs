@@ -45,19 +45,15 @@ namespace Diskuss
         public bool Disconnected
         {
             get { return bDisconnected; }
-            set
-            {
-                if (value)
-                {
+            set {
+                bDisconnected = value;
+                if (value) {
                     Object.brdBack.Background = (Brush)(new BrushConverter().ConvertFrom("#2E3438"));
                     lblName.FontStyle = FontStyles.Italic;
-                }
-                else
-                {
+                } else {
                     Object.brdBack.Background = (Brush)(new BrushConverter().ConvertFrom("#485056"));
                     lblName.FontStyle = FontStyles.Normal;
                 }
-                bDisconnected = value;
             }
         }
 
@@ -90,11 +86,8 @@ namespace Diskuss
 
         public void AddMessage(Message Message)
         {
-            if (!Disconnected)
-            {
-                lblLastMessage.Content = Message.Text.Length > 10 ? $"{Message.Text.Substring(0, 10)}..." : Message.Text;
-                Messages.Add(Message);
-            }
+            lblLastMessage.Content = Message.Text.Length > 10 ? $"{Message.Text.Substring(0, 10)}..." : Message.Text;
+            Messages.Add(Message);
         }
     }
 }

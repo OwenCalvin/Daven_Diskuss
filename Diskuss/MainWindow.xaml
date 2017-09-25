@@ -275,7 +275,7 @@
             </ScrollViewer>
         </Grid>
         <Grid Panel.ZIndex="-1" Margin="456,0,0,0" Background="#414347">
-            <ScrollViewer Margin="25,100,0,60.4">
+            <ScrollViewer Margin="25,100,0,60.4" x:Name="scrChat">
                 <Grid x:Name="grdChat">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>

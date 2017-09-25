@@ -34,6 +34,7 @@ namespace Diskuss
         {
             grdConversations.SelectedConversation.AddMessage(Message);
             AddMessage(Message);
+            scrChat.ScrollToBottom();
         }
 
         private void _diskuss_OnNewPrivateMessage(object sender, Message Message)
@@ -54,6 +55,7 @@ namespace Diskuss
             else
             {
                 AddMessage(Message);
+                scrChat.ScrollToBottom();
             }
         }
 
@@ -92,14 +94,15 @@ namespace Diskuss
 
             grdConversations.Conversations.ForEach(_conv => {
                 bool bConnected = false;
-                foreach (UserChannelObject _uc in Objects)
-                {
-                    if (bConnected = _uc.Name == _conv.Object.Name)
-                    {
+                foreach (UserChannelObject _uc in Objects) {
+                    if (bConnected = _uc.Name == _conv.Object.Name) {
                         break;
                     }
                 }
-                _conv.Disconnected = !bConnected;
+
+                if (!_conv.Disconnected) {
+                    _conv.Disconnected = !bConnected;
+                }
             });
         }
 
@@ -170,7 +173,9 @@ namespace Diskuss
         {
             grdChat.RowDefinitions.Add(new RowDefinition() { Height = new GridLength() });
             Grid.SetRow(Message, grdChat.RowDefinitions.Count - 1);
-            Grid.SetColumn(Message, Message.Me ? 1 : 0);
+            if (Message.Me > -1) {
+                Grid.SetColumn(Message, Message.Me);
+            }
             grdChat.Children.Add(Message);
         }
     }

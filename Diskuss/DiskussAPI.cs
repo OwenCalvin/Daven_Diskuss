@@ -58,7 +58,7 @@ namespace Diskuss {
 
         public async void SendPrivateMessage(string Nick, string Message) {
             string obj = await _httpRequester.PutAsync($"user/{Me.ID}/message/{Nick}/", Message, "message");
-            OnSendPrivateMessage?.Invoke(this, new Message(Message, true));
+            OnSendPrivateMessage?.Invoke(this, new Message(Message, 1));
         }
 
         public async void Login(string Nick, bool Update) {
@@ -74,7 +74,7 @@ namespace Diskuss {
             Notices.ForEach(e => {
                 switch(e.Type) {
                     case "privateMessage":
-                        OnNewPrivateMessage?.Invoke(this, new Message(e.Message, false, e.Sender));
+                        OnNewPrivateMessage?.Invoke(this, new Message(e.Message, 0, e.Sender));
                         break;
                 }
             });
