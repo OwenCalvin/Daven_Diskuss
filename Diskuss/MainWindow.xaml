@@ -266,7 +266,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Width="100" HorizontalAlignment="Left" Background="#23272A" Margin="100,100,0,0">
             <local:UserChannelGrid x:Name="grdChannelsList" Background="#23272A"/>
         </ScrollViewer>
-        <Grid HorizontalAlignment="Left" Width="365" Margin="200,0,0,0" Background="#383c3f">
+        <Grid HorizontalAlignment="Left" Width="365" Margin="100,0,0,0" Background="#383c3f" Panel.ZIndex="1">
             <Grid Background="#303336" Height="90" VerticalAlignment="Top">
                 <Label x:Name="lblNick" Foreground="White" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="30,0,0,0" FontFamily="Segoe UI Semibold"/>
             </Grid>
@@ -274,7 +274,7 @@
                 <local:ConversationGrid x:Name="grdConversations" Background="#383c3f" Width="365"/>
             </ScrollViewer>
         </Grid>
-        <Grid Panel.ZIndex="-1" Margin="556,0,-0.4,-0.4" Background="#414347">
+        <Grid Panel.ZIndex="-1" Margin="456,0,0,0" Background="#414347">
             <ScrollViewer Margin="25,100,0,60.4">
                 <Grid x:Name="grdChat">
                     <Grid.ColumnDefinitions>
@@ -283,7 +283,7 @@
                     </Grid.ColumnDefinitions>
                 </Grid>
             </ScrollViewer>
-            <Grid Background="#383b3f" Height="90" VerticalAlignment="Top">
+            <Grid x:Name="grdConvName" Background="#383b3f" Height="90" VerticalAlignment="Top">
                 <Label x:Name="lblChatName" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold"/>
             </Grid>
             <Grid x:Name="msgForm" Visibility="Collapsed" Background="#4F5154" Height="60" VerticalAlignment="Bottom">

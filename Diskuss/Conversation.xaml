@@ -28,7 +28,7 @@
             </Grid>
             <Grid Margin="1005,0,0.4,0.4" Panel.ZIndex="1" Background="Transparent" Cursor="Hand" MouseDown="Close_MouseDown"/>
             <Grid Margin="0,0,0,0" Width="1062" MouseDown="Grid_MouseDown">
-                <Label Name="lblName" Content="Label" Margin="472,0,-1,185.2" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="110"/>
+                <Label Name="lblName" Content="Label" Margin="472,0,-1,185.2" Foreground="White" FontFamily="Segoe UI" FontSize="110"/>
                 <Label Name="lblLastMessage" Content="" Margin="472,195,7,-15.8" FontFamily="Segoe UI Light" Foreground="White" FontSize="60"/>
                 <Grid Name="grdObject" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Center" Height="257" Width="259"/>
                 <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="Capa_1" HorizontalAlignment="Right" Width="213" Canvas.Left="0" Canvas.Top="0" Cursor="Hand" Margin="0,87,0,0.4">

@@ -69,3 +69,28 @@ D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss
 D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.csproj.GenerateResource.Cache
 D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.exe
 D:\Documents\_.OWEN\Programmation\C#\En developpement\DiskussClone\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.pdb
+D:\gh\Daven_Diskuss\Diskuss\bin\Debug\Diskuss.exe.config
+D:\gh\Daven_Diskuss\Diskuss\bin\Debug\Diskuss.exe
+D:\gh\Daven_Diskuss\Diskuss\bin\Debug\Diskuss.pdb
+D:\gh\Daven_Diskuss\Diskuss\bin\Debug\Newtonsoft.Json.dll
+D:\gh\Daven_Diskuss\Diskuss\bin\Debug\Newtonsoft.Json.xml
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.csprojResolveAssemblyReference.cache
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\Conversation.g.cs
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\MainWindow.g.cs
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\Message.g.cs
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\UserChannelGrid.g.cs
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\UserChannelObject.g.cs
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\App.g.cs
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\Diskuss_MarkupCompile.cache
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\Diskuss_MarkupCompile.lref
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\Conversation.baml
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\MainWindow.baml
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\Message.baml
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\UserChannelGrid.baml
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\UserChannelObject.baml
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.g.resources
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.Properties.Resources.resources
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.csproj.GenerateResource.Cache
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.exe
+D:\gh\Daven_Diskuss\Diskuss\obj\Debug\Diskuss.pdb
