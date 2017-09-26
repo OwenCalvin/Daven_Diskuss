@@ -20,10 +20,10 @@ namespace Diskuss {
             get { return iMe; }
             set {
                 iMe = value;
-                if(Me >= 1) {
+                if (Me >= 1) {
                     brdMain.HorizontalAlignment = HorizontalAlignment.Right;
                     brdMain.Background = (Brush)(new BrushConverter().ConvertFrom("#1CFFFFFF"));
-                } else if(Me == 0) {
+                } else if (Me == 0) {
                     brdMain.HorizontalAlignment = HorizontalAlignment.Left;
                 } else {
                     brdMain.Background = Brushes.Transparent;

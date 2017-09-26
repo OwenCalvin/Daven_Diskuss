@@ -15,7 +15,7 @@ namespace Diskuss {
 
         public Channel(string Name) : base(Name) { Init(); }
 
-        public void SetOwner (string Name) {
+        public void SetOwner(string Name) {
             Owner = new User(Name);
         }
 

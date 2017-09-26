@@ -35,7 +35,7 @@ namespace Diskuss {
                     Add(_ucObject);
                 });
             }
-        } 
+        }
 
         public UserChannelGrid() {
             InitializeComponent();

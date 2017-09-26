@@ -25,7 +25,7 @@ namespace Diskuss {
         }
 
         public async Task<string> PutAsync(string strLink, string strContent, string strProperty) {
-            return await (await http.PutAsync(Url + strLink, new StringContent("{\"" + strProperty + "\":\""+strContent+"\"}", Encoding.UTF8, "application/json"))).Content.ReadAsStringAsync();
+            return await (await http.PutAsync(Url + strLink, new StringContent("{\"" + strProperty + "\":\"" + strContent + "\"}", Encoding.UTF8, "application/json"))).Content.ReadAsStringAsync();
         }
     }
 }

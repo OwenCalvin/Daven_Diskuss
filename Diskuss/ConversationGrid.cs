@@ -25,7 +25,7 @@ namespace Diskuss {
                 OnConversationSelectedChange?.Invoke(this, SelectedConversation);
             }
         }
-        
+
         public event EventHandler<Conversation> OnConversationSelectedChange;
 
         public override void Add(UserChannelObject Object) {
@@ -45,7 +45,7 @@ namespace Diskuss {
         }
 
         public void Remove(Conversation Object) {
-            if(SelectedConversation == Object) {
+            if (SelectedConversation == Object) {
                 SelectedConversation = null;
             }
             RemoveObject(Object);
@@ -54,7 +54,7 @@ namespace Diskuss {
 
         private void RemoveObject(IY Object) {
             grd.RowDefinitions.RemoveAt(Object.Y);
-            grd.Children.Remove((UIElement) Object);
+            grd.Children.Remove((UIElement)Object);
             grd.Children.OfType<IY>().ToArray().Where(_iyE => _iyE.Y > Object.Y).ToList().ForEach(_iyE => {
                 _iyE.Y -= 1;
             });

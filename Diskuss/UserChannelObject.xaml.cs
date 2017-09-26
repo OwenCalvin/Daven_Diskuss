@@ -14,9 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Diskuss {
-    public partial class UserChannelObject : UserControl, IY{
+    public partial class UserChannelObject : UserControl, IY {
         public new UserChannelGrid Parent { get; set; }
-        
+
         public int Y {
             get { return Grid.GetRow(this); }
             set { Grid.SetRow(this, value); }

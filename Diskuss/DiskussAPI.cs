@@ -8,6 +8,7 @@ using System.Web.Script.Serialization;
 using System.Windows.Threading;
 using Newtonsoft.Json;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace Diskuss {
     public class DiskussAPI {
@@ -50,15 +51,17 @@ namespace Diskuss {
         public async void GetChannels() {
             OnChannels?.Invoke(this, JsonConvert.DeserializeObject<List<Channel>>(await _httpRequester.GetAsync("channels")).ToList<UserChannelObject>());
         }
-        
+
         public async void JoinChannel(string Name) {
             string obj = await _httpRequester.PutAsync($"user/{Me.ID}/channels/{Name}/join/", Name, "");
             OnChannelJoin?.Invoke(this, JsonConvert.DeserializeObject<Channel>(obj));
         }
 
         public async void SendPrivateMessage(string Nick, string Message) {
-            string obj = await _httpRequester.PutAsync($"user/{Me.ID}/message/{Nick}/", Message, "message");
-            OnSendPrivateMessage?.Invoke(this, new Message(Message, 1));
+            if (new Regex("^((\\S(?<!&nbsp;))+((\\s|&nbsp;)+)?)+$").IsMatch(Message)) {
+                string obj = await _httpRequester.PutAsync($"user/{Me.ID}/message/{Nick}/", Message, "message");
+                OnSendPrivateMessage?.Invoke(this, new Message(Message, 1));
+            }
         }
 
         public async void Login(string Nick, bool Update) {
@@ -72,7 +75,7 @@ namespace Diskuss {
 
         public void ExecuteNotices(List<Notice> Notices) {
             Notices.ForEach(e => {
-                switch(e.Type) {
+                switch (e.Type) {
                     case "privateMessage":
                         OnNewPrivateMessage?.Invoke(this, new Message(e.Message, 0, e.Sender));
                         break;
